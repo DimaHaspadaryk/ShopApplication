@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,11 +51,13 @@ namespace ShopApplication
             }
            
             _catalogForm.AddItemToListView(id.ToString(), kindOfProduct, producer);
+                
             KindOfProductTB.Clear();
             ProducerTb.Clear();
             IDTB.Clear();
-
+           
         }
+
 
         private void back_button_Click(object sender, EventArgs e)
         {

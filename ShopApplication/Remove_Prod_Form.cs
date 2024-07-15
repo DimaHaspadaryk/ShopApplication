@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,22 @@ namespace ShopApplication
         {
             
         }
+        public void DeleteFromTextFile()
+        {
+            string path = "C:\\Users\\дима\\source\\repos\\ShopApplication\\ListOfProducts.txt";
+            string[] textRead = File.ReadAllLines(path);
+            File.WriteAllText(path, String.Empty);
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                foreach (string s in textRead)
+                {
+                    if (!s.Equals(IDTBRem.Text))
+                    {
+                        writer.WriteLine(s);
+                    }
+                }
+            }
+        }
 
         private void RemoveBt_Click(object sender, EventArgs e)
         {
@@ -44,6 +61,7 @@ namespace ShopApplication
             if(iRemove == DialogResult.Yes)
             {
                 _catalogform.RemoveItemFromListView(id.ToString());
+                DeleteFromTextFile();
                 IDTBRem.Clear();
                 MessageBox.Show("Product successfully removed");
             }

@@ -58,6 +58,7 @@
     <Compile Include="Catalog.Designer.cs">
       <DependentUpon>Catalog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tests.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
