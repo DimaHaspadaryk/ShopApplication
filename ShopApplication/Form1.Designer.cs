@@ -33,6 +33,7 @@
             this.AddButton = new System.Windows.Forms.Button();
             this.ExitButton = new System.Windows.Forms.Button();
             this.RemoveProdBut = new System.Windows.Forms.Button();
+            this.FindProdBut = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -73,7 +74,8 @@
             // 
             // ExitButton
             // 
-            this.ExitButton.Location = new System.Drawing.Point(359, 487);
+            this.ExitButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ExitButton.Location = new System.Drawing.Point(361, 551);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(102, 63);
             this.ExitButton.TabIndex = 3;
@@ -83,6 +85,7 @@
             // 
             // RemoveProdBut
             // 
+            this.RemoveProdBut.Cursor = System.Windows.Forms.Cursors.Hand;
             this.RemoveProdBut.Location = new System.Drawing.Point(361, 314);
             this.RemoveProdBut.Name = "RemoveProdBut";
             this.RemoveProdBut.Size = new System.Drawing.Size(96, 57);
@@ -91,12 +94,24 @@
             this.RemoveProdBut.UseVisualStyleBackColor = true;
             this.RemoveProdBut.Click += new System.EventHandler(this.RemoveProdBut_Click);
             // 
+            // FindProdBut
+            // 
+            this.FindProdBut.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.FindProdBut.Location = new System.Drawing.Point(361, 420);
+            this.FindProdBut.Name = "FindProdBut";
+            this.FindProdBut.Size = new System.Drawing.Size(96, 55);
+            this.FindProdBut.TabIndex = 5;
+            this.FindProdBut.Text = "Find product";
+            this.FindProdBut.UseVisualStyleBackColor = true;
+            this.FindProdBut.Click += new System.EventHandler(this.FindProdBut_Click);
+            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(876, 666);
+            this.Controls.Add(this.FindProdBut);
             this.Controls.Add(this.RemoveProdBut);
             this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.AddButton);
@@ -117,6 +132,7 @@
         private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.Button ExitButton;
         private System.Windows.Forms.Button RemoveProdBut;
+        private System.Windows.Forms.Button FindProdBut;
     }
 }
 

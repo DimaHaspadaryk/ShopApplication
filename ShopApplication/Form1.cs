@@ -57,5 +57,12 @@ namespace ShopApplication
             remove_Prod_Form.Show();
             this.Hide();
         }
+
+        private void FindProdBut_Click(object sender, EventArgs e)
+        {
+            FindProdForm findProdForm = new FindProdForm();
+            findProdForm.Show();
+            this.Hide();
+        }
     }
 }

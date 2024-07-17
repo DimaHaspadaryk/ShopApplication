@@ -101,6 +101,11 @@ namespace ShopApplication
             }
         }
 
+        public void FindProd(string id)
+        {
+            
+        }
+
        
         public void RemoveItemFromListView(string id)
         {
