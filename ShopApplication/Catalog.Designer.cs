@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.BackButton = new System.Windows.Forms.Button();
+            this.surtIDbut = new System.Windows.Forms.Button();
+            this.sortNameBut = new System.Windows.Forms.Button();
+            this.sortProdBut = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BackButton
@@ -42,11 +45,44 @@
             this.BackButton.UseVisualStyleBackColor = true;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
+            // surtIDbut
+            // 
+            this.surtIDbut.Location = new System.Drawing.Point(150, 400);
+            this.surtIDbut.Name = "surtIDbut";
+            this.surtIDbut.Size = new System.Drawing.Size(110, 56);
+            this.surtIDbut.TabIndex = 3;
+            this.surtIDbut.Text = "Sort by ID";
+            this.surtIDbut.UseVisualStyleBackColor = true;
+            this.surtIDbut.Click += new System.EventHandler(this.surtIDbut_Click);
+            // 
+            // sortNameBut
+            // 
+            this.sortNameBut.Location = new System.Drawing.Point(288, 400);
+            this.sortNameBut.Name = "sortNameBut";
+            this.sortNameBut.Size = new System.Drawing.Size(101, 56);
+            this.sortNameBut.TabIndex = 4;
+            this.sortNameBut.Text = "Sort by Name";
+            this.sortNameBut.UseVisualStyleBackColor = true;
+            this.sortNameBut.Click += new System.EventHandler(this.sortNameBut_Click);
+            // 
+            // sortProdBut
+            // 
+            this.sortProdBut.Location = new System.Drawing.Point(418, 400);
+            this.sortProdBut.Name = "sortProdBut";
+            this.sortProdBut.Size = new System.Drawing.Size(101, 56);
+            this.sortProdBut.TabIndex = 5;
+            this.sortProdBut.Text = "Sort by producer";
+            this.sortProdBut.UseVisualStyleBackColor = true;
+            this.sortProdBut.Click += new System.EventHandler(this.sortProdBut_Click);
+            // 
             // CatalogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 475);
+            this.Controls.Add(this.sortProdBut);
+            this.Controls.Add(this.sortNameBut);
+            this.Controls.Add(this.surtIDbut);
             this.Controls.Add(this.BackButton);
             this.Name = "CatalogForm";
             this.Text = "Catalog";
@@ -57,5 +93,8 @@
 
         #endregion
         private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Button surtIDbut;
+        private System.Windows.Forms.Button sortNameBut;
+        private System.Windows.Forms.Button sortProdBut;
     }
 }

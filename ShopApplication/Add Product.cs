@@ -1,33 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ShopApplication
 {
     public partial class Add_Product : Form
     {
-
         private CatalogForm _catalogForm;
-
 
         public Add_Product(CatalogForm catalogForm)
         {
             InitializeComponent();
             _catalogForm = catalogForm;
-
         }
 
-        public void addProduct_button_Click(object sender, EventArgs e)
+        private void addProduct_button_Click(object sender, EventArgs e)
         {
             string kindOfProduct = KindOfProductTB.Text;
             string producer = ProducerTb.Text;
@@ -43,21 +29,19 @@ namespace ShopApplication
                 {
                     MessageBox.Show("Field Producer can't be empty");
                 }
-                if (!int.TryParse(IDTB.Text,out id))
+                if (!int.TryParse(IDTB.Text, out id))
                 {
-                    MessageBox.Show("Field Date is invalid");
+                    MessageBox.Show("Field ID is invalid");
                 }
                 return;
             }
-           
+
             _catalogForm.AddItemToListView(id.ToString(), kindOfProduct, producer);
-                
+
             KindOfProductTB.Clear();
             ProducerTb.Clear();
             IDTB.Clear();
-           
         }
-
 
         private void back_button_Click(object sender, EventArgs e)
         {

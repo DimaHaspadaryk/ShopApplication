@@ -1,22 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ShopApplication
 {
     public partial class Remove_Prod_Form : Form
-
-        
     {
-       private CatalogForm _catalogform;
-       
+        private CatalogForm _catalogform;
+
         public Remove_Prod_Form(CatalogForm catalogForm)
         {
             InitializeComponent();
@@ -25,20 +16,21 @@ namespace ShopApplication
 
         private void Remove_Prod_Form_Load(object sender, EventArgs e)
         {
-            
+
         }
-        public void DeleteFromTextFile()
+
+        public void DeleteFromTextFile(string id)
         {
-            string path = "C:\\Users\\дима\\source\\repos\\ShopApplication\\ListOfProducts.txt";
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ListOfProducts.txt");
             string[] textRead = File.ReadAllLines(path);
             File.WriteAllText(path, String.Empty);
             using (StreamWriter writer = new StreamWriter(path))
             {
-                foreach (string s in textRead)
+                foreach (string line in textRead)
                 {
-                    if (!s.Equals(IDTBRem.Text))
+                    if (!line.StartsWith(id + ","))
                     {
-                        writer.WriteLine(s);
+                        writer.WriteLine(line);
                     }
                 }
             }
@@ -54,22 +46,17 @@ namespace ShopApplication
                 return;
             }
 
-            
             DialogResult iRemove;
-            iRemove = MessageBox.Show("Do you really want delete Product", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            iRemove = MessageBox.Show("Do you really want to delete the product?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
-            if(iRemove == DialogResult.Yes)
+            if (iRemove == DialogResult.Yes)
             {
                 _catalogform.RemoveItemFromListView(id.ToString());
-                DeleteFromTextFile();
+                DeleteFromTextFile(id.ToString());
                 IDTBRem.Clear();
                 MessageBox.Show("Product successfully removed");
             }
-         
-            
         }
-
-     
 
         private void BackButton_Click(object sender, EventArgs e)
         {

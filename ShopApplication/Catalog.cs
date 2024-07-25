@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using System.Windows.Forms;
-using static System.Windows.Forms.LinkLabel;
 
 namespace ShopApplication
 {
     public partial class CatalogForm : Form
     {
-        public ListView ProductListView {get;private set; }
+        private string _filePath;
+
+        public ListView ProductListView { get; private set; }
+
         public CatalogForm()
         {
             InitializeComponent();
@@ -31,29 +28,27 @@ namespace ShopApplication
             this.Controls.Add(ProductListView);
             ProductListView.Dock = DockStyle.Fill;
 
-
+            _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ListOfProducts.txt");
             LoadFromTextFile();
-
         }
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-            this.Hide();  
-            Application.OpenForms["MainMenuForm"].Show();  
-
+            this.Hide();
+            Application.OpenForms["MainMenuForm"].Show();
         }
+
         public void AddItemToListView(string id, string kindOfProduct, string producer)
         {
             var item = new ListViewItem(new[] { id, kindOfProduct, producer });
             ProductListView.Items.Add(item);
-            AppendToTextFile(id, kindOfProduct, producer);
         }
 
         public void AppendToTextFile(string id, string kindOfProduct, string producer)
         {
             try
             {
-                using (StreamWriter writer = new StreamWriter("C:\\Users\\дима\\source\\repos\\ShopApplication\\ListOfProducts.txt", true)) 
+                using (StreamWriter writer = new StreamWriter(_filePath, true))
                 {
                     string line = $"{id},{kindOfProduct},{producer}";
                     writer.WriteLine(line);
@@ -65,48 +60,55 @@ namespace ShopApplication
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Exeption: " + ex.Message);
+                MessageBox.Show("Exception: " + ex.Message);
             }
         }
 
-
         public void SaveToTextFile()
         {
-            using (StreamWriter writer = new StreamWriter("C:\\Users\\дима\\source\\repos\\ShopApplication\\ListOfProducts.txt"))
+            try
             {
-                foreach (ListViewItem item in ProductListView.Items)
+                using (StreamWriter writer = new StreamWriter(_filePath))
                 {
-                    string line = string.Join(",", item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text));
-                    writer.WriteLine(line);
+                    foreach (ListViewItem item in ProductListView.Items)
+                    {
+                        string line = string.Join(",", item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text));
+                        writer.WriteLine(line);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception: " + ex.Message);
             }
         }
 
         public void LoadFromTextFile()
         {
-            if (File.Exists("C:\\Users\\дима\\source\\repos\\ShopApplication\\ListOfProducts.txt"))
+            if (File.Exists(_filePath))
             {
-                using (StreamReader reader = new StreamReader("C:\\Users\\дима\\source\\repos\\ShopApplication\\ListOfProducts.txt"))
+                try
                 {
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
+                    using (StreamReader reader = new StreamReader(_filePath))
                     {
-                        string[] parts = line.Split(',');
-                        if (parts.Length == 3)
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
                         {
-                            AddItemToListView(parts[0], parts[1], parts[2]);
+                            string[] parts = line.Split(',');
+                            if (parts.Length == 3)
+                            {
+                                AddItemToListView(parts[0], parts[1], parts[2]);
+                            }
                         }
                     }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading file: " + ex.Message);
                 }
             }
         }
 
-        public void FindProd(string id)
-        {
-            
-        }
-
-       
         public void RemoveItemFromListView(string id)
         {
             foreach (ListViewItem item in ProductListView.Items)
@@ -120,11 +122,48 @@ namespace ShopApplication
             }
         }
 
+        private void SortListView(int columnIndex)
+        {
+            var items = ProductListView.Items.Cast<ListViewItem>().ToList();
+
+            if (columnIndex == 0)
+            {
+                items.Sort((x, y) =>
+                {
+                    int idX = int.Parse(x.SubItems[columnIndex].Text);
+                    int idY = int.Parse(y.SubItems[columnIndex].Text);
+                    return idX.CompareTo(idY);
+                });
+            }
+            else
+            {
+                items.Sort((x, y) => string.Compare(x.SubItems[columnIndex].Text, y.SubItems[columnIndex].Text));
+            }
+
+            ProductListView.BeginUpdate();
+            ProductListView.Items.Clear();
+            ProductListView.Items.AddRange(items.ToArray());
+            ProductListView.EndUpdate();
+        }
+
             private void CatalogForm_Load(object sender, EventArgs e)
         {
 
         }
 
-  
+        private void surtIDbut_Click(object sender, EventArgs e)
+        {
+            SortListView(0);
+        }
+
+        private void sortNameBut_Click(object sender, EventArgs e)
+        {
+            SortListView(1);
+        }
+
+        private void sortProdBut_Click(object sender, EventArgs e)
+        {
+            SortListView(2);
+        }
     }
 }
