@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.IO;
 using System.Windows.Forms;
 
@@ -18,45 +19,27 @@ namespace ShopApplication
         {
 
         }
-
-        public void DeleteFromTextFile(string id)
+        public void RemoveFromDB()
         {
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ListOfProducts.txt");
-            string[] textRead = File.ReadAllLines(path);
-            File.WriteAllText(path, String.Empty);
-            using (StreamWriter writer = new StreamWriter(path))
+            SqlConnection connection = new SqlConnection(@"server = haspadaryk.mssql.somee.com;Initial Catalog = haspadaryk;Integrated Security = false;User ID = haspad_SQLLogin_1;password = m1628290");
+            connection.Open();
+            string query = "Delete from ListOfProducts where ID = '" + IDTBRem.Text + "' ";
+            SqlCommand command = new SqlCommand(query, connection);
+           int i = command.ExecuteNonQuery();
+            if(i != 0)
             {
-                foreach (string line in textRead)
-                {
-                    if (!line.StartsWith(id + ","))
-                    {
-                        writer.WriteLine(line);
-                    }
-                }
+                MessageBox.Show("Product successfully delete");
+            }
+            else
+            {
+                MessageBox.Show("Error,try again");
             }
         }
-
+       
         private void RemoveBt_Click(object sender, EventArgs e)
         {
-            int id;
 
-            if (!int.TryParse(IDTBRem.Text, out id))
-            {
-                MessageBox.Show("Field ID cannot be empty");
-                return;
-            }
-
-            DialogResult iRemove;
-            iRemove = MessageBox.Show("Do you really want to delete the product?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-
-            if (iRemove == DialogResult.Yes)
-            {
-                _catalogform.RemoveItemFromListView(id.ToString());
-              //  _catalogform.RemoveItemFromDatabase(id.ToString());
-                DeleteFromTextFile(id.ToString());
-                IDTBRem.Clear();
-                MessageBox.Show("Product successfully removed");
-            }
+            RemoveFromDB();
         }
 
         private void BackButton_Click(object sender, EventArgs e)

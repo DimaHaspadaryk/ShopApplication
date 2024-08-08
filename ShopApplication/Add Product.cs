@@ -16,28 +16,7 @@ namespace ShopApplication
 
         private void addProduct_button_Click(object sender, EventArgs e)
         {
-            /* string kindOfProduct = KindOfProductTB.Text;
-             string producer = ProducerTb.Text;
-             int id;
-
-             if (string.IsNullOrEmpty(kindOfProduct) || string.IsNullOrEmpty(producer) || !int.TryParse(IDTB.Text, out id))
-             {
-                 if (string.IsNullOrEmpty(KindOfProductTB.Text))
-                 {
-                     MessageBox.Show("Field Kind of product can't be empty");
-                 }
-                 if (string.IsNullOrEmpty(ProducerTb.Text))
-                 {
-                     MessageBox.Show("Field Producer can't be empty");
-                 }
-                 if (!int.TryParse(IDTB.Text, out id))
-                 {
-                     MessageBox.Show("Field ID is invalid");
-                 }
-                 return;
-             }
-             _catalogForm.AddItemToListView(id.ToString(), kindOfProduct, producer);*/
-            // _catalogForm.AddItemToDatabase(id.ToString(), kindOfProduct, producer);
+           
 
             addprod();
             KindOfProductTB.Clear();
@@ -73,7 +52,7 @@ namespace ShopApplication
             int i = command.ExecuteNonQuery();
             if(i != 0)
             {
-                MessageBox.Show("product saccesfull add");
+                MessageBox.Show("product successfully add");
             }
             else
             {
