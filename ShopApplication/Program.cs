@@ -12,10 +12,12 @@ namespace ShopApplication
         [STAThread]
         static void Main()
         {
+            DataBase data = new DataBase();
            
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new MainMenuForm());
+            
             
           
         }

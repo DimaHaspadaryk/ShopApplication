@@ -79,11 +79,18 @@
     <Compile Include="Catalog.Designer.cs">
       <DependentUpon>Catalog.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataBase.cs" />
     <Compile Include="FindProdForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FindProdForm.Designer.cs">
       <DependentUpon>FindProdForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestBd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestBd.Designer.cs">
+      <DependentUpon>TestBd.cs</DependentUpon>
     </Compile>
     <Compile Include="Tests.cs" />
     <Compile Include="Form1.cs">
@@ -125,6 +132,9 @@
     </Compile>
     <EmbeddedResource Include="Remove_Prod_Form.resx">
       <DependentUpon>Remove_Prod_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestBd.resx">
+      <DependentUpon>TestBd.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

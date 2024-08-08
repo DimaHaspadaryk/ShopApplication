@@ -52,6 +52,7 @@ namespace ShopApplication
             if (iRemove == DialogResult.Yes)
             {
                 _catalogform.RemoveItemFromListView(id.ToString());
+              //  _catalogform.RemoveItemFromDatabase(id.ToString());
                 DeleteFromTextFile(id.ToString());
                 IDTBRem.Clear();
                 MessageBox.Show("Product successfully removed");

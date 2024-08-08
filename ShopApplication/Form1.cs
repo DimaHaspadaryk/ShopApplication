@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Data.SqlClient;
+using System.Data;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace ShopApplication
 {
     public partial class MainMenuForm : Form
     {
         private CatalogForm _catalog;
-
+        DataBase data = new DataBase();
         public MainMenuForm()
         {
+            
             InitializeComponent();
             _catalog = new CatalogForm();
         }
@@ -53,6 +57,14 @@ namespace ShopApplication
             FindProdForm findProdForm = new FindProdForm();
             findProdForm.Show();
             this.Hide();
+        }
+
+        private void testBD_Click(object sender, EventArgs e)
+        {
+            TestBd testBd = new TestBd();
+            testBd.Show();
+            this.Hide();
+           
         }
     }
 }

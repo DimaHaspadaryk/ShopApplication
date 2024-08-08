@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -11,12 +13,14 @@ namespace ShopApplication
     {
         private string _filePath;
 
-        public ListView ProductListView { get; private set; }
+        DataBase _dataBase = new DataBase();
+        
+            public ListView ProductListView { get; private set; }
 
         public CatalogForm()
         {
             InitializeComponent();
-            ProductListView = new ListView
+           /* ProductListView = new ListView
             {
                 Location = new Point(12, 12),
                 Size = new Size(776, 200),
@@ -28,8 +32,11 @@ namespace ShopApplication
             this.Controls.Add(ProductListView);
             ProductListView.Dock = DockStyle.Fill;
 
-            _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ListOfProducts.txt");
-            LoadFromTextFile();
+            _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ListOfProducts.txt");*/
+
+            LoadFromDatabase2();
+            
+           // LoadFromTextFile();
         }
 
         private void BackButton_Click(object sender, EventArgs e)
@@ -43,6 +50,34 @@ namespace ShopApplication
             var item = new ListViewItem(new[] { id, kindOfProduct, producer });
             ProductListView.Items.Add(item);
         }
+        public void Refresh()
+        {
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = "ListOFProducts";
+        }
+       
+        public void LoadFromDatabase()
+        {
+            SqlConnection connection = new SqlConnection();
+           
+            var query = "SELECT * FROM Products";
+            using (var command = new SqlCommand(query, connection))
+            {
+                _dataBase.OpenConnection();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        AddItemToListView(reader["ID"].ToString(), reader["KindOfProduct"].ToString(), reader["Producer"].ToString());
+                    }
+                }
+                _dataBase.CloseConnection();
+            }
+        }
+      
+    
+
+
 
         public void AppendToTextFile(string id, string kindOfProduct, string producer)
         {
@@ -83,6 +118,7 @@ namespace ShopApplication
             }
         }
 
+
         public void LoadFromTextFile()
         {
             if (File.Exists(_filePath))
@@ -108,7 +144,7 @@ namespace ShopApplication
                 }
             }
         }
-
+     
         public void RemoveItemFromListView(string id)
         {
             foreach (ListViewItem item in ProductListView.Items)
@@ -164,6 +200,44 @@ namespace ShopApplication
         private void sortProdBut_Click(object sender, EventArgs e)
         {
             SortListView(2);
+        }
+        public void LoadFromDatabase2()
+        {
+            string connectString = "server = haspadaryk.mssql.somee.com;Initial Catalog = haspadaryk;Integrated Security = false;User ID = haspad_SQLLogin_1;password = m1628290";
+
+            SqlConnection myConnection = new SqlConnection(connectString);
+
+            myConnection.Open();
+
+            string query = "SELECT * from ListOfProducts";
+
+            SqlCommand command = new SqlCommand(query, myConnection);
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            List<string[]> data = new List<string[]>();
+
+            while (reader.Read())
+            {
+                data.Add(new string[3]);
+
+                data[data.Count - 1][0] = reader[0].ToString();
+                data[data.Count - 1][1] = reader[1].ToString();
+                data[data.Count - 1][2] = reader[2].ToString();
+            }
+
+            reader.Close();
+
+            myConnection.Close();
+
+            foreach (string[] s in data)
+                dataGridView1.Rows.Add(s);
+        }
+
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

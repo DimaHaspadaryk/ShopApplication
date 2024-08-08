@@ -34,6 +34,7 @@
             this.ExitButton = new System.Windows.Forms.Button();
             this.RemoveProdBut = new System.Windows.Forms.Button();
             this.FindProdBut = new System.Windows.Forms.Button();
+            this.testBD = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -105,12 +106,23 @@
             this.FindProdBut.UseVisualStyleBackColor = true;
             this.FindProdBut.Click += new System.EventHandler(this.FindProdBut_Click);
             // 
+            // testBD
+            // 
+            this.testBD.Location = new System.Drawing.Point(632, 140);
+            this.testBD.Name = "testBD";
+            this.testBD.Size = new System.Drawing.Size(86, 43);
+            this.testBD.TabIndex = 6;
+            this.testBD.Text = "testBD";
+            this.testBD.UseVisualStyleBackColor = true;
+            this.testBD.Click += new System.EventHandler(this.testBD_Click);
+            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(876, 666);
+            this.Controls.Add(this.testBD);
             this.Controls.Add(this.FindProdBut);
             this.Controls.Add(this.RemoveProdBut);
             this.Controls.Add(this.ExitButton);
@@ -133,6 +145,7 @@
         private System.Windows.Forms.Button ExitButton;
         private System.Windows.Forms.Button RemoveProdBut;
         private System.Windows.Forms.Button FindProdBut;
+        private System.Windows.Forms.Button testBD;
     }
 }
 
