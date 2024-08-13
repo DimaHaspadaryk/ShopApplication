@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -34,63 +35,64 @@ namespace ShopApplication
             Application.OpenForms["MainMenuForm"].Show();
         }
 
+
+
+        
         private void findProdBut_Click(object sender, EventArgs e)
         {
-            string path = "C:\\Users\\дима\\source\\repos\\ShopApplication\\ListOfProducts.txt";
-            string[] textRead = File.ReadAllLines(path);
-            string foundLine = textRead.FirstOrDefault(line => line.Contains(idToFindTB.Text));
+           
+            SqlConnection connection = new SqlConnection(@"server = haspadaryk.mssql.somee.com;Initial Catalog = haspadaryk;Integrated Security = false;User ID = haspad_SQLLogin_1;password = m1628290");
+            string query = "Select ID from ListOfProducts where Id = ' " + idToFindTB.Text + "' ";
 
-            bool found = textRead.Any(line => line.Contains(idToFindTB.Text));
-            if (foundLine != null)
+            connection.Open();
+            SqlCommand cmd = new SqlCommand(query,connection);
+            
+            int i = cmd.ExecuteNonQuery();
+            if(i != 0)
             {
-                MessageBox.Show($"Product is exist : {foundLine}");
-                idToFindTB.Clear();
+                MessageBox.Show("");
             }
             else
             {
-                MessageBox.Show("Product not found");
-                idToFindTB.Clear();
+                MessageBox.Show("Product doesn't exist");
             }
+            connection.Close();
         }
 
         private void FindByNameBut_Click(object sender, EventArgs e)
         {
-            string path = "C:\\Users\\дима\\source\\repos\\ShopApplication\\ListOfProducts.txt";
-            string[] textRead = File.ReadAllLines(path);
-            string foundLine = textRead.FirstOrDefault(line => line.Contains(NameToFindTB.Text));
-
-            bool found = textRead.Any(line => line.Contains(NameToFindTB.Text));
-            if (foundLine != null)
+          
+            SqlConnection connection = new SqlConnection(@"server = haspadaryk.mssql.somee.com;Initial Catalog = haspadaryk;Integrated Security = false;User ID = haspad_SQLLogin_1;password = m1628290");
+            connection.Open();
+            string query = "Select ProductName from ListOfProduct where Name = '" + NameToFindTB.Text + "'";
+            SqlCommand command = new SqlCommand(query,connection);
+            int i = command.ExecuteNonQuery(); 
+            if(i != 0)
             {
-                MessageBox.Show($"Product is exist : {foundLine}");
-                NameToFindTB.Clear();
+                MessageBox.Show("");
             }
             else
             {
-                MessageBox.Show("Product not found");
-                NameToFindTB.Clear();
+                MessageBox.Show("Product doesn't exist");
             }
         }
 
         private void FindByProducerBut_Click(object sender, EventArgs e)
         {
-            string path = "C:\\Users\\дима\\source\\repos\\ShopApplication\\ListOfProducts.txt";
-            string[] textread = File.ReadAllLines(path);
-            string foundline = textread.FirstOrDefault(line => line.Contains(ProdecurToFindTb.Text));
-
-            bool found = textread.Any(line => line.Contains(ProdecurToFindTb.Text));
-            if(foundline != null)
+        
+            SqlConnection connection = new SqlConnection(@"server = haspadaryk.mssql.somee.com;Initial Catalog = haspadaryk;Integrated Security = false;User ID = haspad_SQLLogin_1;password = m1628290");
+            connection.Open();
+            string query = "Select Producer from ListOfProduct where Producer = '" + ProdecurToFindTb.Text + "'";
+            SqlCommand command = new SqlCommand(query, connection);
+            int i = command.ExecuteNonQuery();
+            if (i != 0)
             {
-                MessageBox.Show($"Product exist :  {foundline}");
-                ProdecurToFindTb.Clear();
-
+                MessageBox.Show("");
             }
             else
             {
-                MessageBox.Show("Product not found");
-                ProdecurToFindTb.Clear();
+                MessageBox.Show("Product doesn't exist");
             }
-
         }
 
         private void FindProdForm_Load(object sender, EventArgs e)
