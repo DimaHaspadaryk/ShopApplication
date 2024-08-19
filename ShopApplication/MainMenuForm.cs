@@ -59,12 +59,6 @@ namespace ShopApplication
             this.Hide();
         }
 
-        private void testBD_Click(object sender, EventArgs e)
-        {
-            TestBd testBd = new TestBd();
-            testBd.Show();
-            this.Hide();
-           
-        }
+      
     }
 }

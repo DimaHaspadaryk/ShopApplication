@@ -20,6 +20,7 @@ namespace ShopApplication
         public CatalogForm()
         {
             InitializeComponent();
+            
             LoadFromDatabase2();
         }
 
@@ -29,37 +30,7 @@ namespace ShopApplication
             Application.OpenForms["MainMenuForm"].Show();
         }
 
-
-        public void Refresh()
-        {
-            dataGridView1.DataSource = null;
-            dataGridView1.DataSource = "ListOFProducts";
-        }
-
-        private void SortListView(int columnIndex)
-        {
-            var items = ProductListView.Items.Cast<ListViewItem>().ToList();
-
-            if (columnIndex == 0)
-            {
-                items.Sort((x, y) =>
-                {
-                    int idX = int.Parse(x.SubItems[columnIndex].Text);
-                    int idY = int.Parse(y.SubItems[columnIndex].Text);
-                    return idX.CompareTo(idY);
-                });
-            }
-            else
-            {
-                items.Sort((x, y) => string.Compare(x.SubItems[columnIndex].Text, y.SubItems[columnIndex].Text));
-            }
-
-            ProductListView.BeginUpdate();
-            ProductListView.Items.Clear();
-            ProductListView.Items.AddRange(items.ToArray());
-            ProductListView.EndUpdate();
-        }
-
+    
         private void CatalogForm_Load(object sender, EventArgs e)
         {
 
@@ -67,17 +38,18 @@ namespace ShopApplication
 
         private void surtIDbut_Click(object sender, EventArgs e)
         {
-            SortListView(0);
+            dataGridView1.Sort(dataGridView1.Columns[0], System.ComponentModel.ListSortDirection.Ascending);
+
         }
 
         private void sortNameBut_Click(object sender, EventArgs e)
         {
-            SortListView(1);
+            dataGridView1.Sort(dataGridView1.Columns[1], System.ComponentModel.ListSortDirection.Ascending);
         }
 
         private void sortProdBut_Click(object sender, EventArgs e)
         {
-            SortListView(2);
+            dataGridView1.Sort(dataGridView1.Columns[2], System.ComponentModel.ListSortDirection.Ascending);
         }
         public void LoadFromDatabase2()
         {
@@ -107,9 +79,12 @@ namespace ShopApplication
             reader.Close();
 
             myConnection.Close();
-
+            dataGridView1.Columns[0].ValueType = typeof(int);
             foreach (string[] s in data)
-                dataGridView1.Rows.Add(s);
+            {
+                dataGridView1.Rows.Add(int.Parse(s[0]), s[1], s[2]);  
+            }
+
         }
 
 
