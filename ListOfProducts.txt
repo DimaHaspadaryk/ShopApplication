@@ -1,0 +1,20 @@
+1, Smartphone X, TechCorp
+2, Laptop Pro, CompMaster
+3, Smartwatch, TimeTech
+4, Wireless Earbuds, SoundWave
+5, 4K TV, VisionPlus
+6, Gaming Console, GameHub
+7, Tablet S, DigiWorld
+8, Fitness Tracker, HealthFit
+9, Digital Camera, PhotoSnap
+10, Bluetooth Speaker, AudioMax
+11, Smart Refrigerator, HomeCool
+12, Electric Kettle, KitchenPro
+13, Air Purifier, PureAir
+14, Robot Vacuum, CleanBot
+15, Smart Thermostat, ClimateControl
+16, Electric Toothbrush, SmileCare
+17, Portable Charger, PowerBoost
+18, Noise Cancelling Headphones, QuietComfort
+19, Smart Light Bulb, BrightLife
+20, Streaming Device, StreamEasy	
